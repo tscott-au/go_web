@@ -21,6 +21,7 @@ func TestCoordinateRange(t *testing.T) {
 	if err.Error() != "col out of range: 30" {
 		t.Error("err was not nil got", err)
 	}
+
 	// if c.row != uint32(1) || c.col != uint32(2) {
 	// 	t.Error("Struct Coordinate looks wrong, expected 1,2 got:", c)
 	// }
