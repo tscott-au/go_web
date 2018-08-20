@@ -1,51 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
 
-func TestBasics(t *testing.T) {
-	m, err := NewCoordinateMap(Coordinates{{1, 1}, {1, 2}})
-
-	if err != nil {
-		t.Error("failed NewIsland() ", err)
-	}
-
-	c, _ := NewCoordinate(1, 1)
-	if _, ok := (*m)[*c]; !ok {
-		t.Errorf("failed %v", c)
-	}
-
-	i, err := NewIsland(c, Dot())
-	if err != nil {
-		t.Error(err)
-	}
-
-	c2, _ := NewCoordinate(1, 2)
-
-	i.hits[(*c2)] = true
-
-	for k := range i.location {
-
-		if elem, ok := i.hits[k]; !ok {
-			fmt.Println(elem)
-		}
-
-	}
-
-	if i.Forrested() {
-		fmt.Println(i)
-	}
-
-}
 func TestIslandAtoll(t *testing.T) {
 	x, err := NewCoordinate(1, 1)
 	if err != nil {
 		t.Error(err)
 	}
-	i, err := NewIsland(x, Atoll())
+	i, err := NewIsland(x, Atoll)
 	if err != nil {
 		t.Error("failed NewIsland() ", err)
 	}
@@ -55,7 +20,7 @@ func TestIslandAtoll(t *testing.T) {
 	}
 	//r := fmt.Sprintf("%v", i)
 	//s := "&{map[[1 1]:true [1 2]:true [2 2]:true [3 1]:true [3 2]:true] map[]}"
-	s, err := NewCoordinateMap(Coordinates{{1, 1}, {1, 2}, {2, 2}, {3, 1}, {3, 2}})
+	s, err := NewCoordinateMap(&Coordinates{{1, 1}, {1, 2}, {2, 2}, {3, 1}, {3, 2}})
 
 	if err != nil {
 		t.Error(err)
@@ -71,7 +36,7 @@ func TestIslandSshape(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	i, err := NewIsland(x, Sshape())
+	i, err := NewIsland(x, Sshape)
 	if err != nil {
 		t.Error("failed NewIsland() ", err)
 	}
@@ -80,7 +45,7 @@ func TestIslandSshape(t *testing.T) {
 		t.Error("didn't make an island:", i)
 	}
 
-	s, err := NewCoordinateMap(Coordinates{{2, 4}, {3, 2}, {3, 3}, {2, 3}})
+	s, err := NewCoordinateMap(&Coordinates{{2, 4}, {3, 2}, {3, 3}, {2, 3}})
 	if err != nil {
 		t.Error(err)
 	}
@@ -98,7 +63,7 @@ func TestIslandDotForrest(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	i, err := NewIsland(x, Dot())
+	i, err := NewIsland(x, Dot)
 	if err != nil {
 		t.Error("failed NewIsland() ", err)
 	}
@@ -107,7 +72,7 @@ func TestIslandDotForrest(t *testing.T) {
 		t.Error("didn't make an island:", i)
 	}
 
-	s, err := NewCoordinateMap(Coordinates{{1, 1}})
+	s, err := NewCoordinateMap(&Coordinates{{1, 1}})
 	if err != nil {
 		t.Error(err)
 	}
@@ -134,7 +99,7 @@ func TestIslandSquareForrest(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	i, err := NewIsland(x, Square())
+	i, err := NewIsland(x, Square)
 	if err != nil {
 		t.Error("failed NewIsland() ", err)
 	}
@@ -143,7 +108,7 @@ func TestIslandSquareForrest(t *testing.T) {
 		t.Error("didn't make an island:", i)
 	}
 
-	s, err := NewCoordinateMap(Coordinates{{9, 9}, {9, 10}, {10, 9}, {10, 10}})
+	s, err := NewCoordinateMap(&Coordinates{{9, 9}, {9, 10}, {10, 9}, {10, 10}})
 	if err != nil {
 		t.Error(err)
 	}

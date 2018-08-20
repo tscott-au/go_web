@@ -19,22 +19,22 @@ func (i *Island) Forrested() bool {
 }
 
 // NewIsland make a new island
-func NewIsland(x *Coordinate, fn func() Coordinates) (r *Island, err error) {
+func NewIsland(x *Coordinate, fn func() *Coordinates) (r *Island, err error) {
 
-	offsets := fn()
+	offsets := (*fn())
 	for i := 0; i < len(offsets); i++ {
 		offsets[i][Row] = offsets[i][Row] + x[Row]
 		offsets[i][Col] = offsets[i][Col] + x[Col]
 
 	}
 
-	l, err := NewCoordinateMap(offsets)
+	l, err := NewCoordinateMap(&offsets)
 	if err != nil {
 		return
 	}
 
 	var empty Coordinates
-	h, err := NewCoordinateMap(empty)
+	h, err := NewCoordinateMap(&empty)
 	if err != nil {
 		return
 	}
@@ -43,36 +43,16 @@ func NewIsland(x *Coordinate, fn func() Coordinates) (r *Island, err error) {
 }
 
 // Atoll - make an atoll shape
-func Atoll() func() Coordinates {
-	return func() Coordinates {
-		return Coordinates{{0, 0}, {0, 1}, {1, 1}, {2, 0}, {2, 1}}
-	}
-}
+func Atoll() *Coordinates { return &Coordinates{{0, 0}, {0, 1}, {1, 1}, {2, 0}, {2, 1}} }
 
 // Dot - dot co-ordinates
-func Dot() func() Coordinates {
-	return func() Coordinates {
-		return Coordinates{{0, 0}}
-	}
-}
+func Dot() *Coordinates { return &Coordinates{{0, 0}} }
 
 // Lshape - make an lshape
-func Lshape() func() Coordinates {
-	return func() Coordinates {
-		return Coordinates{{0, 0}, {1, 0}, {2, 0}, {2, 1}}
-	}
-}
+func Lshape() *Coordinates { return &Coordinates{{0, 0}, {1, 0}, {2, 0}, {2, 1}} }
 
 // Sshape - make an sshape
-func Sshape() func() Coordinates {
-	return func() Coordinates {
-		return Coordinates{{0, 1}, {0, 2}, {1, 0}, {1, 1}}
-	}
-}
+func Sshape() *Coordinates { return &Coordinates{{0, 1}, {0, 2}, {1, 0}, {1, 1}} }
 
 // Square - make a square
-func Square() func() Coordinates {
-	return func() Coordinates {
-		return Coordinates{{0, 0}, {0, 1}, {1, 0}, {1, 1}}
-	}
-}
+func Square() *Coordinates { return &Coordinates{{0, 0}, {0, 1}, {1, 0}, {1, 1}} }

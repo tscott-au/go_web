@@ -12,19 +12,17 @@ func TestCoordinate(t *testing.T) {
 	}
 }
 
-func TestCoordinateRange(t *testing.T) {
-	// commented out as not relevant
+func TestCoordinateMap(t *testing.T) {
 
-	// _, err := NewCoordinate(20, 30)
-	// if err.Error() != "row out of range: 20" {
-	// 	t.Error("err was not nil got", err)
-	// }
-	// _, err = NewCoordinate(2, 30)
-	// if err.Error() != "col out of range: 30" {
-	// 	t.Error("err was not nil got", err)
-	// }
+	c := &Coordinates{{1, 1}, {1, 2}}
+	_, err := NewCoordinateMap(c)
+	if err != nil {
+		t.Error(err)
+	}
 
-	// if c.row != uint32(1) || c.col != uint32(2) {
-	// 	t.Error("Struct Coordinate looks wrong, expected 1,2 got:", c)
-	// }
+	c = &Coordinates{{1, 1}, {1, 2}, {1, 1}}
+	_, err = NewCoordinateMap(c)
+	if err == nil {
+		t.Error("Expected duplicate key error got:", err)
+	}
 }
