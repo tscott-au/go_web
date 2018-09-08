@@ -1,4 +1,4 @@
-package main
+package game
 
 // Guesses - hold hit / miss for guesses
 type Guesses struct {
