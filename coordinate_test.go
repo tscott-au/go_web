@@ -7,7 +7,7 @@ func TestCoordinate(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if c[Row] != uint32(1) || c[Col] != uint32(2) {
+	if c[Row] != uint8(1) || c[Col] != uint8(2) {
 		t.Error("Struct Coordinate looks wrong, expected 1,2 got:", c)
 	}
 }

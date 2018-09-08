@@ -141,3 +141,60 @@ func TestIslandSquareForrest(t *testing.T) {
 		t.Errorf("Square island should NOT be forrested but got %v", i)
 	}
 }
+
+func IslandHelper(t *testing.T, s IslandShape, c ...uint8) (i *Island, ok bool) {
+	x, err := NewCoordinate(c...)
+	if err != nil {
+		t.Error(err)
+		ok = false
+	}
+
+	i, err = NewIsland(x, s)
+	if err != nil {
+		t.Error("failed NewIsland() ", err)
+		ok = false
+	}
+
+	if i == nil {
+		t.Error("didn't make an island:", i)
+		ok = false
+	}
+	ok = true
+
+	return
+
+}
+
+func TestIslandSquareOverlaps(t *testing.T) {
+	i, ok := IslandHelper(t, Square, 1, 3)
+	if !ok {
+		return
+	}
+
+	j, ok := IslandHelper(t, Square, 2, 3)
+	if !ok {
+		return
+	}
+
+	if !i.Overlaps(j) && !j.Overlaps(i) {
+		t.Errorf("Island overlap problem")
+	}
+
+	k, ok := IslandHelper(t, Square, 3, 3)
+	if !ok {
+		return
+	}
+
+	if i.Overlaps(k) {
+		t.Errorf("Island overlap problem2")
+	}
+
+	m, ok := IslandHelper(t, Lshape, 1, 3)
+	if !ok {
+		return
+	}
+
+	if !k.Overlaps(m) {
+		t.Errorf("Island overlap problem3")
+	}
+}

@@ -11,7 +11,7 @@ const Row = 0
 const Col = 1
 
 // Coordinate building block of board
-type Coordinate [2]uint32
+type Coordinate [2]uint8
 
 // Coordinates is an array of coordinates
 type Coordinates []Coordinate
@@ -20,7 +20,7 @@ type Coordinates []Coordinate
 type CoordinateMap map[Coordinate]bool
 
 // NewCoordinate make a new coordinate
-func NewCoordinate(c ...uint32) (*Coordinate, error) {
+func NewCoordinate(c ...uint8) (*Coordinate, error) {
 	if len(c) != 2 {
 		return nil, fmt.Errorf("wrong number of input, expected 2 ints got: %v", c)
 	}
